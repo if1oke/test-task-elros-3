@@ -1,21 +1,14 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted } from 'vue'
 import RatesItem from '@/components/Rates/RatesItem.vue'
+import { mainStore } from '@/store/mainStore'
 
-const exchangeRates = ref([
-  {
-    currency: 'BTC',
-    rate: '61231,44',
-    color: 'orange-lighten-2',
-    icon: 'mdi-currency-btc'
-  },
-  {
-    currency: 'TON',
-    rate: '3,66',
-    color: 'indigo-lighten-3',
-    icon: 'mdi-diamond-stone'
-  }
-])
+const store = mainStore()
+
+onMounted(async () => {
+  await store.getExchangeRate()
+})
+
 </script>
 
 <template>
@@ -25,12 +18,17 @@ const exchangeRates = ref([
   </v-card-title>
   <v-card-text class="d-flex">
     <rates-item
-      v-for="(item, idx) in exchangeRates"
-      :key="idx"
-      :exchange-rate="item.rate"
-      :color="item.color"
-      :icon="item.icon"
-      :currency="item.currency"
+      :exchange-rate="store.exchange.current.btc.rate"
+      :color="store.exchange.current.btc.color"
+      :icon="store.exchange.current.btc.icon"
+      :currency="store.exchange.current.btc.currency"
+      class="mx-2"
+    />
+    <rates-item
+      :exchange-rate="store.exchange.current.ton.rate"
+      :color="store.exchange.current.ton.color"
+      :icon="store.exchange.current.ton.icon"
+      :currency="store.exchange.current.ton.currency"
       class="mx-2"
     />
   </v-card-text>

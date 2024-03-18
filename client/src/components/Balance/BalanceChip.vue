@@ -1,8 +1,13 @@
 <script setup>
-const props = defineProps({
+defineProps({
   balance: {
     type: String,
     required: true
+  },
+  tooltip: {
+    type: String,
+    required: false,
+    default: 'Доллары США'
   },
   color: {
     type: String,
@@ -19,14 +24,18 @@ const props = defineProps({
 
 <template>
   <div>
-    <v-chip :color="props.color">
-      <v-icon start>
-        {{ props.icon }}
-      </v-icon>
-      <span class="font-weight-bold text-subtitle-1">
-      {{ props.balance }}
-    </span>
-    </v-chip>
+    <v-tooltip :text="tooltip" location="bottom">
+      <template v-slot:activator="{ props }">
+        <v-chip v-bind="props" :color="color">
+          <v-icon start>
+            {{ icon }}
+          </v-icon>
+          <span class="font-weight-bold text-subtitle-1">
+        {{ balance }}
+      </span>
+        </v-chip>
+      </template>
+    </v-tooltip>
   </div>
 </template>
 
