@@ -1,6 +1,16 @@
 <script setup>
 
 import BalanceStatus from '@/components/Balance/BalanceStatus.vue'
+import { mainStore } from '@/store/mainStore'
+import { onMounted } from 'vue'
+
+const store = mainStore()
+
+onMounted(async () => {
+  if (store.user.authState) {
+    await store.getWallet()
+  }
+})
 </script>
 
 <template>

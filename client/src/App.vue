@@ -3,11 +3,9 @@
   <v-layout>
     <app-bar />
     <v-main
-      class="d-flex justify-space-around"
+      class="d-flex justify-space-around mt-5"
     >
-      <div class="d-flex mt-5">
-        <router-view />
-      </div>
+      <router-view />
     </v-main>
   </v-layout>
 </v-app>
